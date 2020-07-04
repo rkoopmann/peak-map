@@ -1,45 +1,67 @@
-// const ratio = 540/230 - mug
+import tinycolor from 'tinycolor2';
+
 const appState = {
   angle: 0,
   currentState: 'intro',
   lineDensity: 28,
+  lineWidth: 1,
   smoothSteps: 1,
   mapOpacity: 100,
   heightScale: 42,
   oceanLevel: 0,
   aboutVisible: false,
-  blank: false,
   error: null,
   zazzleLink: null,
-  startOver,
   generatingPreview: false,
   settingsOpen: false,
   shouldDraw: false,
-  showPrintMessage: false,
   renderProgress: null,
-  hidePrintMessageForSession: false,
-  width: window.innerWidth,
-  height: window.innerHeight,
-
-  backgroundColor: {
-    r: 255, g: 255, b: 255, a: 1
-  },
-  lineBackground: {
-    r: 255, g: 255, b: 255, a: 1
-  },
-  lineColor: {
-    r: 22, g: 22, b: 22, a: 0.85
-  },
+  showBoundaryDetails: false,
+  selectedBoundShortName: null,
+  boundarySearchQuery: '',
+  boundarySearchResults: [],
+  bounds: null,
+  mapName: null,
+  showLess: false,
+  showThemeDetails: false,
+  selectedTheme: 'beige',
+  themes: [{
+    value: 'beige',
+    name: 'beige',
+    backgroundColor: '#F7F2E8',
+    lineBackground: '#F7F2E8',
+    lineColor: 'rgb(22, 22, 22)'
+  }, {
+    value: 'dark', 
+    name: 'dark',
+    backgroundColor: '#3C3D3D',
+    lineBackground: '#3C3D3D',
+    lineColor: '#ffffff'
+  }, {
+    value: 'blue',
+    name: 'blue',
+    backgroundColor: '#101E33',
+    lineBackground: '#101E33',
+    lineColor: '#D1D8E3'
+  }, {
+    value: 'emerald',
+    name: 'emerald',
+    backgroundColor: '#182217',
+    lineBackground: '#182217',
+    lineColor: '#2CFA8A',
+  }, {
+    value: 'white', 
+    name: 'white',
+    backgroundColor: '#ffffff',
+    lineBackground: '#ffffff',
+    lineColor: '#000000'
+  }],
 };
 
-// projects lon/lat into current XY plane
-
-function startOver() {
-  appState.zazzleLink = null;
-  appState.generatingPreview = false;
-  appState.currentState = 'intro';
-  appState.blank = false,
-  appState.downloadOsmProgress = null;
-}
+// TODO: This should probably live in App.vue
+let theme = appState.themes.find(theme => theme.name === appState.selectedTheme);
+appState.backgroundColor = tinycolor(theme.backgroundColor).toRgb();
+appState.lineBackground = tinycolor(theme.lineBackground).toRgb();
+appState.lineColor = tinycolor(theme.lineColor).toRgb();
 
 export default appState;
